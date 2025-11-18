@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "EventCatalogApi.Protos";
+
+package events;
+
+service EventCatalog {
+  rpc GetEvent (GetEventRequest) returns (EventFullResponse);
+  rpc GetAllEvents (GetAllEventsRequest) returns (EventListResponse);
+  rpc CreateEvent (CreateEventRequest) returns (CreatedEventResponse);
+}
+
+message GetEventRequest {
+  string event_id = 1;
+}
+
+message GetAllEventsRequest {
+  int32 page_size = 1;
+  int32 page_number = 2;
+  string category_name = 3;
+}
+
+message CreateEventRequest {
+  string title = 1;
+  string description = 2;
+  google.protobuf.Timestamp start_date = 3;
+  google.protobuf.Timestamp end_date = 4;
+  string city = 5;
+  string address = 6;
+  string country = 7;
+  string category_name = 8;
+  string category_description = 9;
+  string organizer_id = 10;
+  string venue_id = 11;
+  int32 capacity = 12;
+}
+
+message EventFullResponse {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  google.protobuf.Timestamp start_date = 4;
+  google.protobuf.Timestamp end_date = 5;
+  string full_location = 6;
+  string category_name = 7;
+  string organizer_id = 8;
+  string venue_id = 9;
+  int32 capacity = 10;
+}
+
+message EventMiniResponse {
+  string title = 1;
+  google.protobuf.Timestamp start_date = 2;
+  google.protobuf.Timestamp end_date = 3;
+  string full_location = 4;
+}
+
+message EventListResponse {
+  repeated EventMiniResponse events = 1;
+  int32 total_count = 2;
+  int32 page = 3;
+  int32 page_size = 4;
+}
+
+message CreatedEventResponse {
+  string id = 1;
+}
