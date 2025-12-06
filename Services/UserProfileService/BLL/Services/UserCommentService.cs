@@ -2,21 +2,26 @@ using BLL.DTOs.Request.UserComment;
 using BLL.DTOs.Responce;
 using BLL.Exceptions;
 using BLL.Services.Contracts;
+using Common;
 using DAL.Entities;
 using DAL.Entities.HelpModels;
 using DAL.Helpers;
 using DAL.UoW;
 using Mapster;
+using Microsoft.Extensions.Caching.Distributed;
+
 
 namespace BLL.Services;
 
 public class UserCommentService : IUserCommentService
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IDistributedCache _cache;
 
-    public UserCommentService(IUnitOfWork unitOfWork)
+    public UserCommentService(IUnitOfWork unitOfWork, IDistributedCache cache)
     {
         _unitOfWork = unitOfWork;
+        _cache = cache;
     }
     
     public async Task<IEnumerable<UserCommentResponceDTO>> GetAllByEventId(string eventId)
@@ -27,7 +32,14 @@ public class UserCommentService : IUserCommentService
 
     public async Task<IEnumerable<UserCommentResponceDTO>> GetAllByUserId(string userId)
     {
-        var allComments = await _unitOfWork.UserCommentRepository.GetAllByUserId(userId);
+        string cacheKey = $"userComments_userId:{userId}";
+
+        var allComments = await _cache.GetOrCreateAsync(cacheKey, async token =>
+        {
+            var comments = await _unitOfWork.UserCommentRepository.GetAllByUserId(userId);
+            return comments;
+        });
+        
         return allComments.Adapt<IEnumerable<UserCommentResponceDTO>>();
     }
 

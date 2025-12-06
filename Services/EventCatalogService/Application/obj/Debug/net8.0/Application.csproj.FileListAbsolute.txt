@@ -17,7 +17,9 @@
 /Users/artembuziak/RiderProjects/MicroservicesPlatform/Services/EventCatalogService/Application/bin/Debug/net8.0/Application.deps.json
 /Users/artembuziak/RiderProjects/MicroservicesPlatform/Services/EventCatalogService/Application/bin/Debug/net8.0/Application.dll
 /Users/artembuziak/RiderProjects/MicroservicesPlatform/Services/EventCatalogService/Application/bin/Debug/net8.0/Application.pdb
+/Users/artembuziak/RiderProjects/MicroservicesPlatform/Services/EventCatalogService/Application/bin/Debug/net8.0/Common.dll
 /Users/artembuziak/RiderProjects/MicroservicesPlatform/Services/EventCatalogService/Application/bin/Debug/net8.0/Domain.dll
+/Users/artembuziak/RiderProjects/MicroservicesPlatform/Services/EventCatalogService/Application/bin/Debug/net8.0/Common.pdb
 /Users/artembuziak/RiderProjects/MicroservicesPlatform/Services/EventCatalogService/Application/bin/Debug/net8.0/Domain.pdb
 /Users/artembuziak/RiderProjects/MicroservicesPlatform/Services/EventCatalogService/Application/obj/Debug/net8.0/Application.csproj.AssemblyReference.cache
 /Users/artembuziak/RiderProjects/MicroservicesPlatform/Services/EventCatalogService/Application/obj/Debug/net8.0/Application.GeneratedMSBuildEditorConfig.editorconfig

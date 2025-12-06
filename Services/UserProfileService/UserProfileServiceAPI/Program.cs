@@ -42,6 +42,13 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
     });
 });
 
+// Redis
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+    options.InstanceName = "UserProfile";
+});
+builder.Services.AddScoped<ILogger<UserProfileService>, Logger<UserProfileService>>();
 //gRPC
 builder.Services.AddGrpc(options =>
 {

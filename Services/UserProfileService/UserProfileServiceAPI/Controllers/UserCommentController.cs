@@ -44,7 +44,7 @@ public class UserCommentController : ControllerBase
         return Ok(comment);
     }
     
-    [HttpGet("{commentId:int}")]
+    [HttpGet("{commentId:int}"), ActionName("GetByCommentId")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -62,7 +62,7 @@ public class UserCommentController : ControllerBase
         CancellationToken cancellationToken)
     {
         var comment = await _userCommentService.CreateAsync(dto, cancellationToken);
-        return CreatedAtAction(nameof(GetByCommentId), new {id = comment.id}, comment);
+        return CreatedAtAction(nameof(GetByCommentId), new {commentId = comment.id}, comment);
     }
     
     [HttpPut("{commentId:int}")]

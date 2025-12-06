@@ -88,6 +88,10 @@ public static class Extensions
                     {
                         options.RecordException = true;
                     })
+                    .AddGrpcClientInstrumentation(options =>
+                    {
+                      options.SuppressDownstreamInstrumentation = true;
+                    })
                     .AddSource(builder.Environment.ApplicationName)
                     .AddEntityFrameworkCoreInstrumentation(options =>
                     {
@@ -98,7 +102,7 @@ public static class Extensions
                             activity.SetTag("db.command_type", dbCommand.CommandType.ToString());
                             activity.SetTag("db.operation", operation);
                             activity.SetTag("db.name-connection", dbCommand.Connection?.Database);
-                            
+
                         };
                     })
                     .AddNpgsql()

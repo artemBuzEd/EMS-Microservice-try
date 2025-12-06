@@ -3,22 +3,30 @@ using BLL.DTOs.Responce;
 using BLL.Exceptions;
 using BLL.Services.Contracts;
 using Bogus;
-
+using Common;
 using DAL.Entities;
 using DAL.Entities.HelpModels;
 using DAL.Helpers;
 using DAL.UoW;
 using Mapster;
+using MapsterMapper;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace BLL.Services;
 
 public class UserProfileService : IUserProfileService
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IDistributedCache _cache;
+    private readonly ILogger<UserProfileService> _logger;
 
-    public UserProfileService(IUnitOfWork unitOfWork)
+    public UserProfileService(IUnitOfWork unitOfWork, IDistributedCache cache, ILogger<UserProfileService> logger)
     {
         _unitOfWork = unitOfWork;
+        _cache = cache;
+        _logger = logger;
     }
     
     public async Task<IEnumerable<UserProfileResponceDTO>> GetAllUsersAsync()
@@ -29,7 +37,15 @@ public class UserProfileService : IUserProfileService
 
     public async Task<UserProfileResponceDTO> GetUserByIdAsync(string userId)
     {
-        var userProfile = await _unitOfWork.UserProfileRepository.GetByIdAsync(userId);
+        string cacheKey = $"userProfile_userId:{userId}";
+        var userProfile = await _cache.GetOrCreateAsync(cacheKey, async token =>
+        {
+            var userProfiles = await _unitOfWork.UserProfileRepository.GetByIdAsync(userId);
+            return userProfiles;
+        },
+            logger: _logger);
+        
+        //var userProfile = await _unitOfWork.UserProfileRepository.GetByIdAsync(userId);
         return userProfile.Adapt<UserProfileResponceDTO>();
     }
 

@@ -2,7 +2,10 @@ using Application.DTOs;
 using Application.Exceptions;
 using Domain.Interfaces;
 using MediatR;
+using Common;
+using Domain.Entities;
 using Mapster;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace Application.Events.Queries.GetEventByIdQuery;
 
@@ -19,7 +22,7 @@ public class GetEventByIdQueryHandler : IRequestHandler<GetEventByIdQuery, Event
     {
         var @event = await _eventRepository.GetByIdAsync(request.Id);
         
-        if(@event == null)
+        if(@event is null)
             throw new NotFoundException("Event", $"Event Id: {request.Id} not found");
         
         return @event.Adapt<EventDto>();

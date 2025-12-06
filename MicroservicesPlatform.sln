@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aggregator", "Aggregator\Ag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{868D6150-E5C0-42BB-BDA3-2B7B913DFE7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{794B3639-1809-4F77-B65F-8B464BEBE240}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{868D6150-E5C0-42BB-BDA3-2B7B913DFE7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{868D6150-E5C0-42BB-BDA3-2B7B913DFE7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{868D6150-E5C0-42BB-BDA3-2B7B913DFE7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{794B3639-1809-4F77-B65F-8B464BEBE240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{794B3639-1809-4F77-B65F-8B464BEBE240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{794B3639-1809-4F77-B65F-8B464BEBE240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{794B3639-1809-4F77-B65F-8B464BEBE240}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6D64A1A2-97E0-463F-B68E-8E34382CEDBE} = {AAA27267-8F64-4078-876C-80BDE79D3645}

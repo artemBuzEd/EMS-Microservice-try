@@ -35,6 +35,13 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
     });
 });
 
+// Redis
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+    options.InstanceName = "EventCatalog";
+});
+
 //gRPC
 builder.Services.AddGrpc(options =>
 {
@@ -97,15 +104,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseHttpsRedirection();
-
-app.MapGet("/protocol-test", (HttpContext context) =>
-{
-    return new
-    {
-        Protocol = context.Request.Protocol,
-        IsHttp2 = context.Request.Protocol == "HTTP/2",
-        Headers = context.Request.Headers.Select(h => new { h.Key, Value = h.Value.ToString() })
-    };
-});
 
 app.Run();
